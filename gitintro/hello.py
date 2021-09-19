@@ -1,5 +1,5 @@
-Authors: Kevin Bui and Cole Weinstein 
-This file contains code for the git example lab
+# Authors: Kevin Bui and Cole Weinstein 
+# This file contains code for the git example lab
 
 
 def main():

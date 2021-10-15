@@ -9,12 +9,13 @@ import csv
 
 sports_dict = {} # sport_name : id_number
 events_dict = {} # event_name|sport_id : id_number
-games_dict = {} # game_title|year|season,city : id_number
+games_dict = {} # game_title|year|season|city : id_number
 medals_dict = {} # medal_type : id_number
 noc_regions_dict = {} # noc_code|region|team_name : id_number
 athletes_dict = {} # athlete_name : id_number 
 biometrics_dict = {} # sex|age|weight|height : id_number
 athletes_biometrics_dict = {} # athlete_id|biometric_id : id_number
+athletes_super_table_dict = {} # athlete_biometric_id|game_id|noc_id|event_id|medal_id : id_number
 
 def create_files():
   '''
@@ -116,44 +117,54 @@ def populate_csv_files():
     event_name = row[13]
     medal_type = row[14]
 
-    athletes_super_table_row = populate_athletes_events(athlete_name, sex, age, height, weight, team_name, noc_code, region, game_title, year, season, city, sport_name, event_name, medal_type).split("|")
-    athletes_super_table_writer.writerow(athletes_super_table_row)
+    populate_athletes_super_table(athlete_name, sex, age, height, weight, game_title, year, season, city, noc_code, region, team_name, sport_name, event_name, medal_type)
 
   #writes each entry in the following dictionaries to the appropriate file
 
   for sport_string in sports_dict:
     sport_string_row = sport_string.split("|")
-    for val in sport_string_row:
-      val = str(val)
+    sport_string_row.insert(0, sports_dict.get(sport_string))
     sports_writer.writerow(sport_string_row)
   
   for event_string in events_dict:
     event_string_row = event_string.split("|")
+    event_string_row.insert(0, events_dict.get(event_string))
     events_writer.writerow(event_string_row)
 
   for game_string in games_dict:
     game_string_row = game_string.split("|")
+    game_string_row.insert(0, games_dict.get(game_string))
     games_writer.writerow(game_string_row)
 
   for medal_string in medals_dict:
     medal_string_row = medal_string.split("|")
+    medal_string_row.insert(0, medals_dict.get(medal_string))
     medals_writer.writerow(medal_string_row)
 
   for noc_region_string in noc_regions_dict:
     noc_region_string_row = noc_region_string.split("|")
+    noc_region_string_row.insert(0, noc_regions_dict.get(noc_region_string))
     noc_writer.writerow(noc_region_string_row)
 
   for athlete_string in athletes_dict:
     athlete_string_row = athlete_string.split("|")
+    athlete_string_row.insert(0, athletes_dict.get(athlete_string))
     athletes_writer.writerow(athlete_string_row)
 
   for biometric_string in biometrics_dict:
     biometric_string_row = biometric_string.split("|")
+    biometric_string_row.insert(0, biometrics_dict.get(biometric_string))
     biometrics_writer.writerow(biometric_string_row)
 
   for athlete_biometric_string in athletes_biometrics_dict:
     athlete_biometric_string_row = athlete_biometric_string.split("|")
+    athlete_biometric_string_row.insert(0, athletes_biometrics_dict.get(athlete_biometric_string))
     athletes_biometrics_writer.writerow(athlete_biometric_string_row)
+
+  for athlete_super_table_string in athletes_super_table_dict:
+    athlete_super_table_string_row = athlete_super_table_string.split("|")
+    athlete_super_table_string_row.insert(0, athletes_super_table_dict.get(athlete_super_table_string))
+    athletes_super_table_writer.writerow(athlete_super_table_string_row)
   
 
   athletes_file.close()
@@ -240,16 +251,19 @@ def populate_athletes_biometrics(athlete_name, sex, age, weight, height):
 
   return athletes_biometrics_dict.get(athlete_biometric_string)
 
-def populate_athletes_events(athlete_name, sex, age, weight, height, game_title, year, season, city, noc_code, region, team_name, sport_name, event_name, medal_type):
+def populate_athletes_super_table(athlete_name, sex, age, weight, height, game_title, year, season, city, noc_code, region, team_name, sport_name, event_name, medal_type):
   athlete_biometric_id = populate_athletes_biometrics(athlete_name, sex, age, weight, height)
   game_id = populate_games(game_title, year, season, city)
   noc_id = populate_noc_regions(noc_code, region, team_name)
   event_id = populate_events(event_name, sport_name)
   medal_id = populate_medals(medal_type)
 
-  athlete_event_string = str(athlete_biometric_id) + "|" + str(game_id) + "|" + str(noc_id) + "|" + str(event_id) + "|" + str(medal_id)
+  athlete_super_table_string = str(athlete_biometric_id) + "|" + str(game_id) + "|" + str(noc_id) + "|" + str(event_id) + "|" + str(medal_id)
 
-  return athlete_event_string
+  if athlete_super_table_string not in athletes_super_table_dict.keys():
+    athletes_super_table_dict.update({athlete_super_table_string : len(athletes_super_table_dict)})
+
+  return athletes_super_table_dict.get(athlete_super_table_string)
 
 
 

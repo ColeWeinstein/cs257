@@ -1,0 +1,25 @@
+psql commands to copy data into associated tables in olympics database.
+
+Written by Cole Weinstein for Carleton's CS257 Olympics lab, October 2021.
+
+--------------------------------------------------------------------------
+
+\copy medals FROM 'medals.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy sports FROM 'sports.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy events FROM 'events.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy games FROM 'games.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy seasons FROM 'seasons.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy noc_regions FROM 'noc.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy athletes FROM 'athletes.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy biometrics FROM 'biometrics.csv' DELIMITER ',' CSV NULL as 'NA'
+
+\copy athletes_biometrics FROM 'athletes_biometrics.csv' DELIMITER ',' CSV NULL as 'NULL'
+
+\copy athletes_super_table FROM 'athletes_super_table.csv' DELIMITER ',' CSV NULL as 'NULL'

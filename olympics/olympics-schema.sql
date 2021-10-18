@@ -1,25 +1,30 @@
 CREATE TABLE medals(
 id SMALLSERIAL,
-type TEXT
+medal TEXT
 );
 
 CREATE TABLE sports(
 id SMALLSERIAL,
-name TEXT
+sport TEXT
 );
 
 CREATE TABLE events(
 id SMALLSERIAL,
-sport_id INT,
-name TEXT
+event TEXT,
+sport_id INT
 );
 
 CREATE TABLE games(
 id SMALLSERIAL,
 title TEXT,
 year INT,
-season TEXT,
+season_id INT,
 city TEXT
+);
+
+CREATE TABLE seasons(
+id SMALLSERIAL,
+season TEXT
 );
 
 CREATE TABLE noc_regions(
@@ -31,15 +36,15 @@ team_name TEXT
 
 CREATE TABLE athletes(
 id SERIAL,
-name TEXT
+athlete_name TEXT
 );
 
 CREATE TABLE biometrics(
 id SERIAL,
 sex TEXT,
 age INT,
-weight INT,
-height INT
+weight DECIMAL(6,2),
+height DECIMAL(6,2)
 );
 
 CREATE TABLE athletes_biometrics(
@@ -48,7 +53,7 @@ athletes_id INT,
 biometrics_id INT
 );
 
-CREATE TABLE athletes_events(
+CREATE TABLE athletes_super_table(
 id SERIAL,
 athletes_biometrics_id INT,
 games_id INT,

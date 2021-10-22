@@ -1,0 +1,33 @@
+NAME 
+    python3 olympics.py (..........)
+
+SYNOPSIS   
+    python3 olympics.py -n NOC_CODE [-e EVENT_NAME] [-y YEAR] [-m]
+    python3 olympics.py -g NOC_CODE [-e EVENT_NAME] [-y YEAR]
+    python3 olympics.py -e EVENT_NAME [-n NOC_CODE] [-y YEAR] [-m]
+    python3 olympics.py -y YEAR [-n NOC_CODE] [-e EVENT_NAME] [-m]
+    python3 olympics.py -m [-n NOC_CODE] [-e EVENT_NAME] [-y YEAR]
+
+
+DESCRIPTION
+    Finds information about the athletes registered under a specific NOC (National Olympic Committee), the athletes who have participated in a given event, the athletes who participated in a certain year, and the athletes who have medaled.
+    
+    Additionally, finds the number of gold medals each NOC has won.
+
+    The -e, -m, -n, and -y flags can all be combined in any order. The -g flag can only be modified by the -e and -y flags.
+
+    -n, --noc
+        Queries the olympics database for every athlete from a given NOC
+    -g, --gold
+        Queries the olympics database for every NOC sorted by the number of gold medals won
+    -e, --event
+        Queries the olympics database for every athlete that has participated in the given event. When used with -n, restricts the query to all athletes from a certain NOC who have also participated in the specified event. When used with -g, restricts the query to all medals won by an NOC in the specified event.
+    -y, --year
+        Queries the olympics database for every athlete that participated in the given year. When used with -n, restricts the query to all athletes from a certain NOC who participated in the given year. When used with -g, restricts the query to all medals won by each NOC in a certain year. When used with -e, restricts the query to all athlete from a certain event who participated in the given year.
+    -m, --medal
+        Queries the olympics database for every athlete that has medaled, sorted by the number of medals won. When used with -n, -e, or -y restricts the query to all athletes who have medaled.
+    -h, --help
+        Displays this help and exits
+
+EXAMPLE
+
